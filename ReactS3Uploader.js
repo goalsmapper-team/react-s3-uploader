@@ -86,6 +86,31 @@ var ReactS3Uploader = createReactClass({
         });
     },
 
+    setFiles: function(files = []) {
+        if (files.length === 0) {
+            return;
+        }
+        this.myUploader = new S3Upload({
+            files,
+            signingUrl: this.props.signingUrl,
+            getSignedUrl: this.props.getSignedUrl,
+            preprocess: this.props.preprocess,
+            onSignedUrl: this.props.onSignedUrl,
+            onProgress: this.props.onProgress,
+            onFinishS3Put: this.props.onFinish,
+            onError: this.props.onError,
+            signingUrlMethod: this.props.signingUrlMethod,
+            signingUrlHeaders: this.props.signingUrlHeaders,
+            signingUrlQueryParams: this.props.signingUrlQueryParams,
+            signingUrlWithCredentials: this.props.signingUrlWithCredentials,
+            uploadRequestHeaders: this.props.uploadRequestHeaders,
+            contentDisposition: this.props.contentDisposition,
+            server: this.props.server,
+            scrubFilename: this.props.scrubFilename,
+            s3path: this.props.s3path
+        });
+    },
+
     abort: function() {
         this.myUploader && this.myUploader.abortUpload();
     },
